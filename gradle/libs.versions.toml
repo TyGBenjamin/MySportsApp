@@ -1,0 +1,101 @@
+[versions]
+activityCompose = "1.7.2"
+androidApp = "8.0.1"
+coilV = "2.3.0"
+constraint = "2.1.4"
+compose = "1.3.1"
+coroutine = "1.6.4"
+composeActivity = "1.7.2"
+composeBom = "2023.06.01"
+coreCtx = "1.10.1"
+coroutines = "1.3.2"
+dataStore = "1.0.0"
+daggerHilt = "2.44.2"
+hiltNavigation = "1.0.0"
+jUnit5 = "5.9.1"
+kotlin = "1.8.21"
+lifecycle = "2.6.1"
+material = "1.1.0-alpha02"
+mockk = "1.13.4"
+navigation = "2.6.0"
+room = "2.5.1"
+retrofit = "2.9.0"
+serialV = "1.5.0"
+jakeV = "0.8.0"
+
+[plugins]
+hilt = { id = "com.google.dagger.hilt.android", version.ref = "daggerHilt" }
+kotlin-android = { id = "org.jetbrains.kotloin.android", version.ref = "kotlin" }
+kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+
+
+[libraries]
+androidx-core = { module = "androidx.core:core-ktx", version = "1.10.1" }
+androidx-lifecycle = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "lifecycle" }
+androidx-activity = { module = "androidx.activity:activity-compose", version.ref = "activityCompose" }
+androidx-compose-bom = {module = "androidx.compose:compose-bom", version = "2023.06.01" }
+androidx-compose-ui = { module = "androidx.compose.ui:ui" }
+androidx-coil = { module = "io.coil-kt:coil-compose", version.ref="coilV" }
+androidx-compose-ui-graphics = { module = "androidx.compose.ui:ui-graphics" }
+androidx-compose-ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview" }
+androidx-compose-material3 = { module = "androidx.compose.material3:material3" }
+androidx-compose-lifecycle-viewmodel = { module = "androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "lifecycle" }
+androidx-compose-navigation = { module = "androidx.navigation:navigation-compose", version.ref = "navigation" }
+androidx-room = { module = "androidx.room:room-runtime", version.ref = "room" }
+androidx-room-ktx = { module = "androidx.room:room-ktx", version.ref = "room" }
+androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "room" }
+
+com-squareup-retrofit2 = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
+com-squareup-retrofit2-converter-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "retrofit" }
+retrofit-serialization = { module = "com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter", version.ref = "jakeV" }
+kotlinx-serialization = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "serialV" }
+
+hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "daggerHilt" }
+dagger-navigation = { module = "androidx.navigation:navigation-fragment", version.ref = "navigation" }
+hilt-complier = { module = "com.google.dagger:hilt-compiler", version.ref = "daggerHilt" }
+hilt-navigation-compose = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "hiltNavigation" }
+
+junit-bom = { module = "org.junit:junit-bom", version.ref = "jUnit5" }
+junit-jupiter = { module = "org.junit.jupiter:junit-jupiter" }
+
+kotlinx-test-coroutines = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutines" }
+
+mockk-agent = { module = "io.mockk:mockk-agent", version.ref = "mockk" }
+mockk-android = { module = "io.mockk:mockk-android", version.ref = "mockk" }
+
+[bundles]
+test = [
+    "junit-bom",
+    "junit-jupiter",
+    "kotlinx-test-coroutines",
+    "mockk-agent",
+    "mockk-android"
+]
+network = [
+    "com-squareup-retrofit2",
+    "com-squareup-retrofit2-converter-gson",
+    "retrofit-serialization",
+    "kotlinx-serialization"
+]
+
+core = [
+    "androidx-core",
+    "androidx-lifecycle",
+    "androidx-activity",
+]
+database = [
+    "androidx-room",
+    "androidx-room-ktx",
+    "androidx-room-compiler"
+]
+compose = [
+    "androidx-compose-bom",
+    "androidx-compose.ui",
+    "androidx-compose-ui-graphics",
+    "androidx-compose-ui-tooling-preview",
+    "androidx-compose-material3",
+    "androidx-compose-lifecycle-viewmodel",
+    "androidx-compose-navigation"
+]
+
+
