@@ -55,13 +55,14 @@ fun HomeScreen() {
             ),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            var value by remember {
+            var searchedPlayer by remember {
                 mutableStateOf("")
             }
 
 
-            IconOne(R.drawable.snowboarding_24)
-            TextField(value = value, onValueChange = { value = it },
+//            IconOne(R.drawable.snowboarding_24)
+            IconGroup()
+            TextField(value = searchedPlayer, onValueChange = { searchedPlayer = it },
                 label = { Label("search Name of Favorite Player") })
 
             val (snackbarVisibleState, setSnackBarState) = remember {
@@ -70,7 +71,7 @@ fun HomeScreen() {
                 )
             }
             MyButton(
-                text = "Search Favorite Player",
+                text = "Search",
                 action = {
                     setSnackBarState(!snackbarVisibleState)
 //                        dashboardViewModel.addContactNew(addedContact)
@@ -156,10 +157,21 @@ fun DividerOne() {
 @Suppress("FunctionNaming")
 @Composable
 fun IconGroup() {
-    Column(modifier = Modifier.fillMaxWidth()) {
-
+    Box(
+        modifier = Modifier.padding(horizontal = 80.dp),
+        contentAlignment = Alignment.Center
+    ) {
+        Column(modifier = Modifier.fillMaxWidth()) {
+            Row(modifier = Modifier.fillMaxWidth()) {
+                IconOne(R.drawable.snowboarding_24)
+                IconOne(R.drawable.sports_kabaddi_24)
+            }
+            Row(modifier = Modifier.fillMaxWidth()) {
+                IconOne(R.drawable.sports_basketball)
+                IconOne(R.drawable.sports_baseball)
+            }
+        }
     }
-
 }
 
 @Suppress("FunctionNaming")
