@@ -55,15 +55,20 @@ fun HomeScreen() {
             ),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            var searchedPlayer by remember {
+            var firstName by remember {
+                mutableStateOf("")
+            }
+            var lastName by remember {
                 mutableStateOf("")
             }
 
 
 //            IconOne(R.drawable.snowboarding_24)
             IconGroup()
-            TextField(value = searchedPlayer, onValueChange = { searchedPlayer = it },
-                label = { Label("search Name of Favorite Player") })
+            TextField(value = firstName, onValueChange = { firstName = it },
+                label = { Label("enter first Name") })
+            TextField(value = lastName, onValueChange = { lastName = it },
+                label = { Label("enter last Name") })
 
             val (snackbarVisibleState, setSnackBarState) = remember {
                 mutableStateOf(
