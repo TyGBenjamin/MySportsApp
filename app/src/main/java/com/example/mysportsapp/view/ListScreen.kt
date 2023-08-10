@@ -50,12 +50,12 @@ fun PlayerRow(player: FavPlayer) {
         Row(modifier = Modifier.fillMaxWidth()) {
             ImageThumbnail(player)
             Text(
-                text = player.strPlayer,
+                text = player.strPlayer!!,
                 color = Color.White,
                 fontSize = 25.sp
             )
         }
-        Text(text = player.strDescriptionEN)
+        Text(text = player.strDescriptionEN!!)
     }
 }
 

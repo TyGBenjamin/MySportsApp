@@ -1,6 +1,7 @@
 package com.example.mysportsapp.view
 
 import android.annotation.SuppressLint
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -15,6 +16,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Divider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -22,6 +24,7 @@ import androidx.compose.material3.Snackbar
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -34,11 +37,16 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.mysportsapp.R
+import com.example.mysportsapp.utils.Constants
+import com.example.mysportsapp.utils.Resource
+import com.example.mysportsapp.viewmodel.PlayerViewModel
 
 
 @SuppressLint("NotConstructor")
 @Composable
-fun HomeScreen() {
+fun HomeScreen(
+    viewModel: PlayerViewModel = androidx.lifecycle.viewmodel.compose.viewModel()
+) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -76,27 +84,24 @@ fun HomeScreen() {
                 )
             }
             MyButton(
-                text = "Search",
-                action = {
-                    setSnackBarState(!snackbarVisibleState)
-//                        dashboardViewModel.addContactNew(addedContact)
-                })
-            if (snackbarVisibleState) {
-                Snackbar(
-                    action = {
-                        Button(onClick = {
-                            setSnackBarState(!snackbarVisibleState)
-                        }) {
-                            Text(text = "hide the snackbar")
-                        }
-                    },
-                    modifier = Modifier.padding(8.dp)
-                ) {
-                    Column() {
-                        Text(text = "The snackbar is showing")
-                    }
-                }
+                text = "Search"
+            ) {
+                println("hitting viewmodel method")
+                Log.d(
+                    Constants
+                        .VIEWMODEL_TAG, "HomeScreen testing: $firstName%20$lastName "
+                )
+                viewModel.getFavPlayer("$firstName%20$lastName")
             }
+
+            ListScreen(players = viewModel.state.playerList)
+//            when( val playList = viewModel.playerList.collectAsState().value){
+//                is Resource.Error -> ErrorIndicator()
+//                Resource.Idle -> println("Idle")
+//                Resource.Loading -> CircularProgressIndicator()
+//                is Resource.Success ->    ListScreen(players = playList.data)
+//            }
+
             DividerOne()
             Row(verticalAlignment = Alignment.CenterVertically) {
             }
@@ -104,8 +109,12 @@ fun HomeScreen() {
         Column {
             QuickText(text = "")
             Row(modifier = Modifier.padding(start = 145.dp)) {
-//                                IconLabels(resource = R.drawable.ic_baseline_perm_phone_msg_24,
-//                                    navigate = { findNavController().navigate(R.id.addPhoneFragment) })
+                val (snackbarVisibleState, setSnackBarState) = remember {
+                    mutableStateOf(
+                        false
+                    )
+                }
+
                 IconLabels(
                     resource = R.drawable.cloud_download,
                     navigate = {
@@ -183,13 +192,13 @@ fun IconGroup() {
 @Composable
 fun IconOne(vectorAsset: Int) {
     Box(
-        modifier = Modifier.padding(5.dp),
+        modifier = Modifier.padding(horizontal = 25.dp),
         contentAlignment = Alignment.Center
     ) {
         Icon(
             painter = painterResource(id = vectorAsset),
             null,
-            Modifier.size(100.dp),
+            Modifier.size(50.dp),
             tint = Color.White
         )
     }
@@ -216,6 +225,15 @@ fun QuickText(text: String) {
     )
 }
 
+@Composable
+fun ErrorIndicator() {
+    Box(
+        modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center
+    ) {
+        Text(text = "ERROR IS RETRIEVING DATA", fontSize = 40.sp)
+    }
+}
+
 @Suppress("FunctionNaming")
 @Composable
 fun IconLabels(resource: Int, navigate: () -> Unit) {
@@ -228,6 +246,7 @@ fun IconLabels(resource: Int, navigate: () -> Unit) {
             null,
             Modifier
                 .size(50.dp)
+                .padding(horizontal = 10.dp)
                 .clickable { navigate() },
             tint = Color.White
         )
