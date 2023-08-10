@@ -55,7 +55,8 @@ fun PlayerRow(player: FavPlayer) {
                 fontSize = 25.sp
             )
         }
-        Text(text = player.strDescriptionEN!!)
+        Text(text = player.strDescriptionEN!!,
+            color = Color.White,)
     }
 }
 

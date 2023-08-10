@@ -4,7 +4,6 @@ data class FavPlayer(
     val idPlayer: String? ="",
     val idTeam: String? ="",
     val strDescriptionEN: String? ="",
-//    val strDescriptionES: String,
     val strPlayer: String? ="",
     val strThumb: String? = "",
     )

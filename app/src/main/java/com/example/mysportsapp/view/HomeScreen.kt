@@ -71,8 +71,8 @@ fun HomeScreen(
             }
 
 
-//            IconOne(R.drawable.snowboarding_24)
             IconGroup()
+            Text(text = "Search your favorite popular athlete such as Kobe Bryant or Derek Jeter (please note the api used to build this does not have every athlete available")
             TextField(value = firstName, onValueChange = { firstName = it },
                 label = { Label("enter first Name") })
             TextField(value = lastName, onValueChange = { lastName = it },
@@ -91,16 +91,10 @@ fun HomeScreen(
                     Constants
                         .VIEWMODEL_TAG, "HomeScreen testing: $firstName%20$lastName "
                 )
-                viewModel.getFavPlayer("$firstName%20$lastName")
+                viewModel.getFavPlayer("$firstName " + lastName)
             }
 
             ListScreen(players = viewModel.state.playerList)
-//            when( val playList = viewModel.playerList.collectAsState().value){
-//                is Resource.Error -> ErrorIndicator()
-//                Resource.Idle -> println("Idle")
-//                Resource.Loading -> CircularProgressIndicator()
-//                is Resource.Success ->    ListScreen(players = playList.data)
-//            }
 
             DividerOne()
             Row(verticalAlignment = Alignment.CenterVertically) {
@@ -117,14 +111,10 @@ fun HomeScreen(
 
                 IconLabels(
                     resource = R.drawable.cloud_download,
-                    navigate = {
-//                            findNavController().navigate(R.id.addEmailFragment)
-                    })
+                  )
                 IconLabels(
                     resource = R.drawable.share_icon,
-                    navigate = {
-//                            findNavController().navigate(R.id.addAddressFragment)
-                    }
+
                 )
             }
             DividerOne()
@@ -192,13 +182,12 @@ fun IconGroup() {
 @Composable
 fun IconOne(vectorAsset: Int) {
     Box(
-        modifier = Modifier.padding(horizontal = 25.dp),
         contentAlignment = Alignment.Center
     ) {
         Icon(
             painter = painterResource(id = vectorAsset),
             null,
-            Modifier.size(50.dp),
+            Modifier.size(100.dp),
             tint = Color.White
         )
     }
@@ -236,7 +225,7 @@ fun ErrorIndicator() {
 
 @Suppress("FunctionNaming")
 @Composable
-fun IconLabels(resource: Int, navigate: () -> Unit) {
+fun IconLabels(resource: Int) {
     Box(
         modifier = Modifier.padding(5.dp),
         contentAlignment = Alignment.Center
@@ -247,7 +236,7 @@ fun IconLabels(resource: Int, navigate: () -> Unit) {
             Modifier
                 .size(50.dp)
                 .padding(horizontal = 10.dp)
-                .clickable { navigate() },
+                .clickable {  },
             tint = Color.White
         )
     }

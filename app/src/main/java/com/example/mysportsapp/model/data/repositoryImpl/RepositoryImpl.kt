@@ -6,6 +6,7 @@ import com.example.mysportsapp.remote.api.ApiService
 import com.example.mysportsapp.repository.Repository
 import com.example.mysportsapp.utils.Constants
 import com.example.mysportsapp.utils.Resource
+import com.example.mysportsapp.view.ErrorIndicator
 import javax.inject.Inject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -14,7 +15,7 @@ class RepositoryImpl @Inject constructor(private val apiService: ApiService) : R
     override suspend fun getFavoritePlayer(player: String): Resource<List<FavPlayer>> =
         withContext(Dispatchers.IO) {
             return@withContext try {
-                Log.d(Constants.REPO_TAG, "getFavoritePlayer: $player")
+                Log.d(Constants.REPO_TAG, "getFavoritePlayer: REPO SHOWING PLAYER AS$player")
                 apiResponse(player)
             } catch (e: IllegalArgumentException) {
                 Resource.Error(e.message.toString())
@@ -22,6 +23,7 @@ class RepositoryImpl @Inject constructor(private val apiService: ApiService) : R
         }
 
     suspend fun apiResponse(player: String) = withContext(Dispatchers.IO) {
+        Log.d(Constants.REPO_TAG, "API RESPONSE SHOWING $player as ")
         val response = apiService.getFavoritePlayer(player)
         Log.d(Constants.REPO_TAG, "apiResponse IS AS FOLLOWS: $response ")
         if (response.isSuccessful && response.body() != null) {
