@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.mysportsapp.model.data.entity.FavPlayer
 import com.example.mysportsapp.model.data.repositoryImpl.RepositoryImpl
+import com.example.mysportsapp.utils.Constants
 import com.example.mysportsapp.utils.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -18,12 +19,12 @@ class PlayerViewModel @Inject constructor(val repo: RepositoryImpl) : ViewModel(
     var state by mutableStateOf(PlayerState())
         private set
 
-    fun getFavPlayer(player: String = "Allen%20Iverson") = viewModelScope.launch {
+    fun getFavPlayer(player: String) = viewModelScope.launch {
         val playerList = repo.getFavoritePlayer(player)
         when (playerList) {
-            is Resource.Error -> TODO()
-            Resource.Idle -> TODO()
-            Resource.Loading -> TODO()
+            is Resource.Error -> Resource.Error(Constants.ERROR_MSG)
+            Resource.Idle -> Resource.Idle
+            Resource.Loading -> Resource.Loading
             is Resource.Success -> state = state.copy(
                 isLoading = false,
                 playerList = playerList.data
@@ -34,6 +35,6 @@ class PlayerViewModel @Inject constructor(val repo: RepositoryImpl) : ViewModel(
     data class PlayerState(
         var playerList: List<FavPlayer> = emptyList(),
         var isLoading: Boolean = false,
-        var error: String = ""
+        var error: String = Constants.ERROR_MSG
     )
 }

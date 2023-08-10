@@ -103,11 +103,6 @@ fun HomeScreen(
             MyButton(
                 text = "Search"
             ) {
-                println("hitting viewmodel method")
-                Log.d(
-                    Constants
-                        .VIEWMODEL_TAG, "HomeScreen testing: $firstName%20$lastName "
-                )
                 if (firstName.isEmpty() || lastName.isEmpty()) {
                     setSnackBarState(!snackbarVisibleState)
                 } else viewModel.getFavPlayer("$firstName " + lastName)
@@ -127,8 +122,7 @@ fun HomeScreen(
                 )
                 IconLabels(
                     resource = R.drawable.share_icon,
-
-                    )
+                )
             }
             DividerOne()
         }

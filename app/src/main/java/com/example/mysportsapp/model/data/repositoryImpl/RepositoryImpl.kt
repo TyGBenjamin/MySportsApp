@@ -15,7 +15,6 @@ class RepositoryImpl @Inject constructor(private val apiService: ApiService) : R
     override suspend fun getFavoritePlayer(player: String): Resource<List<FavPlayer>> =
         withContext(Dispatchers.IO) {
             return@withContext try {
-                Log.d(Constants.REPO_TAG, "getFavoritePlayer: REPO SHOWING PLAYER AS$player")
                 apiResponse(player)
             } catch (e: IllegalArgumentException) {
                 Resource.Error(e.message.toString())
@@ -23,9 +22,7 @@ class RepositoryImpl @Inject constructor(private val apiService: ApiService) : R
         }
 
     suspend fun apiResponse(player: String) = withContext(Dispatchers.IO) {
-        Log.d(Constants.REPO_TAG, "API RESPONSE SHOWING $player as ")
         val response = apiService.getFavoritePlayer(player)
-        Log.d(Constants.REPO_TAG, "apiResponse IS AS FOLLOWS: $response ")
         if (response.isSuccessful && response.body() != null) {
             val playerList = response.body()!!.player.map { it.toPlayer() }
             Resource.Success(playerList)
