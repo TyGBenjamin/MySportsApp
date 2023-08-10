@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">MySportsApp</string>
+    <string name="disclaimer">Search your favorite popular athlete such as Kobe Bryant or Derek Jeter (please note the api used to build this does not have every athlete available</string>
 </resources>

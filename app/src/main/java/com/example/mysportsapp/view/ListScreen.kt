@@ -59,10 +59,3 @@ fun PlayerRow(player: FavPlayer) {
             color = Color.White,)
     }
 }
-
-//val painter = rememberAsyncImagePainter("https://example.com/image.jpg")
-//
-//AsyncImage(
-//model = "https://example.com/image.jpg",
-//contentDescription = null,
-//)

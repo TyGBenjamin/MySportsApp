@@ -7,7 +7,7 @@ import retrofit2.http.Query
 
 interface ApiService {
     @GET(PLAYER_ENDPOINT)
-    suspend fun getFavoritePlayer(@Query("p") player: String = "Allen%20Iverson"): Response<FavoritePlayerResponse>
+    suspend fun getFavoritePlayer(@Query("p") player: String): Response<FavoritePlayerResponse>
 //    @GET(POST_ENDPOINT)
 //    suspend fun getPosts(): Response<List<PostDTO>>
     companion object{

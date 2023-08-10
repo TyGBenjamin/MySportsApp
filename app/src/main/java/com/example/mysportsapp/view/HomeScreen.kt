@@ -33,6 +33,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -72,7 +73,7 @@ fun HomeScreen(
 
 
             IconGroup()
-            Text(text = "Search your favorite popular athlete such as Kobe Bryant or Derek Jeter (please note the api used to build this does not have every athlete available")
+            Text(text = stringResource(R.string.disclaimer), color = Color.White)
             TextField(value = firstName, onValueChange = { firstName = it },
                 label = { Label("enter first Name") })
             TextField(value = lastName, onValueChange = { lastName = it },
@@ -83,6 +84,22 @@ fun HomeScreen(
                     false
                 )
             }
+            if (snackbarVisibleState) {
+                Snackbar(
+                    action = {
+                        Button(onClick = {
+                            setSnackBarState(!snackbarVisibleState)
+                        }) {
+                            Text(text = "hide notice")
+                        }
+                    },
+                    modifier = Modifier.padding(8.dp)
+                ) {
+                    Column() {
+                        Text(text = "Please enter a valid name")
+                    }
+                }
+            }
             MyButton(
                 text = "Search"
             ) {
@@ -91,7 +108,9 @@ fun HomeScreen(
                     Constants
                         .VIEWMODEL_TAG, "HomeScreen testing: $firstName%20$lastName "
                 )
-                viewModel.getFavPlayer("$firstName " + lastName)
+                if (firstName.isEmpty() || lastName.isEmpty()) {
+                    setSnackBarState(!snackbarVisibleState)
+                } else viewModel.getFavPlayer("$firstName " + lastName)
             }
 
             ListScreen(players = viewModel.state.playerList)
@@ -103,27 +122,15 @@ fun HomeScreen(
         Column {
             QuickText(text = "")
             Row(modifier = Modifier.padding(start = 145.dp)) {
-                val (snackbarVisibleState, setSnackBarState) = remember {
-                    mutableStateOf(
-                        false
-                    )
-                }
-
                 IconLabels(
                     resource = R.drawable.cloud_download,
-                  )
+                )
                 IconLabels(
                     resource = R.drawable.share_icon,
 
-                )
+                    )
             }
             DividerOne()
-            MyButton(
-                text = "Clear List",
-                action = {
-//                        findNavController().navigate(R.id.dashboardFragment)
-                }
-            )
         }
     }
 }
@@ -236,7 +243,7 @@ fun IconLabels(resource: Int) {
             Modifier
                 .size(50.dp)
                 .padding(horizontal = 10.dp)
-                .clickable {  },
+                .clickable { },
             tint = Color.White
         )
     }
